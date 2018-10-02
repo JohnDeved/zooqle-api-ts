@@ -22,6 +22,8 @@ export class Zooqle {
       htmlResults.each((i) => {
         const e = htmlResults.eq(i)
         const progress = e.parent().parent().find('.progress')
+        const magnet = e.parent().parent().find('.spr.dl-magnet')
+          .first().parent().attr('href')
         const size = progress.eq(0).text()
         const [seeders, leechers] = progress.eq(1).attr('title').match(/\d+/g).map(x => parseInt(x, 10))
         results.push({
@@ -29,7 +31,8 @@ export class Zooqle {
           title: e.text(),
           size,
           seeders,
-          leechers
+          leechers,
+          magnet
         })
       })
       console.log(results)
