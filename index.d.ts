@@ -14,6 +14,7 @@ interface IsearchResponse {
     total: number;
 }
 export declare class Zooqle {
+    endPoint: string;
     search(query: string): Promise<IsearchResponse>;
 }
 export declare const zooqle: Zooqle;

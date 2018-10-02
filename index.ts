@@ -18,10 +18,19 @@ interface IsearchResponse {
   total: number
 }
 
+interface Iload {
+  $: CheerioStatic,
+  url: string
+}
+
 class Common {
-  public static async request (url: string) {
+  public static async load (url: string): Promise<Iload> {
     const result = await axios.get(url)
-    return cheerio.load(result.data)
+
+    return {
+      $: cheerio.load(result.data),
+      url: result.request.path
+    }
   }
 
   public static magnetToHash (magnet: string) {
@@ -73,11 +82,21 @@ class Parser {
 }
 
 export class Zooqle {
+  public endPoint = 'https://zooqle.com'
 
   public async search (query: string) {
     return new Promise<IsearchResponse>((resolve, reject) => {
-      Common.request(`https://zooqle.com/search?q=${query}`)
-        .then($ => resolve(Parser.parseSearch($)))
+      Common.load(`${this.endPoint}/search?q=${query}`)
+        .then(res => {
+          switch (true) {
+            case /\/tv\//.test(res.url):
+              return resolve() // handle tv
+            case /\/movie\//.test(res.url):
+              return resolve() // handle movie
+            default:
+              return resolve(Parser.parseSearch(res.$))
+          }
+        })
         .catch(reject)
     })
   }

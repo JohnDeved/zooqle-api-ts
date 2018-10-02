@@ -11,10 +11,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = require("axios");
 const cheerio = require("cheerio");
 class Common {
-    static request(url) {
+    static load(url) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield axios_1.default.get(url);
-            return cheerio.load(result.data);
+            return {
+                $: cheerio.load(result.data),
+                url: result.request.path
+            };
         });
     }
     static magnetToHash(magnet) {
@@ -57,11 +60,23 @@ class Parser {
     }
 }
 class Zooqle {
+    constructor() {
+        this.endPoint = 'https://zooqle.com';
+    }
     search(query) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                Common.request(`https://zooqle.com/search?q=${query}`)
-                    .then($ => resolve(Parser.parseSearch($)))
+                Common.load(`${this.endPoint}/search?q=${query}`)
+                    .then(res => {
+                    switch (true) {
+                        case /\/tv\//.test(res.url):
+                            return resolve(); // handle tv
+                        case /\/movie\//.test(res.url):
+                            return resolve(); // handle movie
+                        default:
+                            return resolve(Parser.parseSearch(res.$));
+                    }
+                })
                     .catch(reject);
             });
         });
