@@ -17,32 +17,53 @@ class Common {
             return cheerio.load(result.data);
         });
     }
+    static magnetToHash(magnet) {
+        return magnet.match(/:([\w\d]{40})/)[1];
+    }
+}
+class Parser {
+    static parseSearch($) {
+        let [, search, pageSize, total] = $('.panel.zq-panel.zq-small .panel-heading')
+            .text().trim().match(/"(.+)"\n{2}.+-\n(\d+)\nof (\d+)/);
+        pageSize = parseInt(pageSize, 10);
+        total = parseInt(total, 10);
+        const htmlResults = $('td.text-trunc.text-nowrap a');
+        const searchResults = [];
+        htmlResults.each((i) => {
+            const e = htmlResults.eq(i);
+            const progress = e.parent().parent().find('.progress');
+            const magnet = e.parent().parent().find('.spr.dl-magnet')
+                .first().parent().attr('href');
+            const size = progress.eq(0).text();
+            const [seeders, leechers] = progress.eq(1).attr('title')
+                .match(/\d+/g).map(x => parseInt(x, 10));
+            searchResults.push({
+                href: e.attr('href'),
+                title: e.text(),
+                size,
+                seeders,
+                leechers,
+                magnet,
+                hash: Common.magnetToHash(magnet)
+            });
+        });
+        const response = {
+            searchResults,
+            search,
+            pageSize,
+            total
+        };
+        return response;
+    }
 }
 class Zooqle {
     search(query) {
-        Common.request(`https://zooqle.com/search?q=${query}`).then($ => {
-            const [, search, pageSize, total] = $('.panel.zq-panel.zq-small .panel-heading')
-                .text().trim()
-                .match(/"(.+)"\n{2}.+-\n(\d+)\nof (\d+)/);
-            const htmlResults = $('td.text-trunc.text-nowrap a');
-            const results = [];
-            htmlResults.each((i) => {
-                const e = htmlResults.eq(i);
-                const progress = e.parent().parent().find('.progress');
-                const magnet = e.parent().parent().find('.spr.dl-magnet')
-                    .first().parent().attr('href');
-                const size = progress.eq(0).text();
-                const [seeders, leechers] = progress.eq(1).attr('title').match(/\d+/g).map(x => parseInt(x, 10));
-                results.push({
-                    href: e.attr('href'),
-                    title: e.text(),
-                    size,
-                    seeders,
-                    leechers,
-                    magnet
-                });
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => {
+                Common.request(`https://zooqle.com/search?q=${query}`)
+                    .then($ => resolve(Parser.parseSearch($)))
+                    .catch(reject);
             });
-            console.log(results);
         });
     }
 }
