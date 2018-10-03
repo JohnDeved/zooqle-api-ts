@@ -1,21 +1,6 @@
-interface IsearchResults {
-    href: string;
-    title: string;
-    size: string;
-    seeders: number;
-    leechers: number;
-    magnet: string;
-    hash: string;
-}
-interface IsearchResponse {
-    searchResults: IsearchResults[];
-    search: string;
-    pageSize: number;
-    total: number;
-}
 export declare class Zooqle {
     endPoint: string;
-    search(query: string): Promise<IsearchResponse>;
+    search(query: string): Promise<any>;
+    getHrefData(dataHred: string): Promise<void>;
 }
 export declare const zooqle: Zooqle;
-export {};
