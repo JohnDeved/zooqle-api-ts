@@ -96,12 +96,15 @@ class Parser {
         titleLinks.each(i => {
             const title = titleLinks.eq(i).text();
             const url = titleLinks.eq(i).attr('href');
-            const sound = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(0).text();
-            const language = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(1).text();
-            const quality = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(2).text().trim();
+            // todo make these work 100% of the time
+            let sound = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(0).text();
+            let language = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(1).text().trim();
+            let quality = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(2).text().trim();
             const magnet = $('.spr.dl-magnet').eq(i).parent().attr('href');
             const hash = Common.magnetToHash(magnet);
             const size = $('.progress-bar.prog-blue.prog-l').eq(i).text();
+            const [seeders, leechers] = $('.progress-bar.smaller.prog-l').eq(i).parent().attr('title')
+                .match(/\d+/g).map(x => parseInt(x, 10));
             data.push({
                 title,
                 url,
@@ -110,7 +113,9 @@ class Parser {
                 quality,
                 magnet,
                 hash,
-                size
+                size,
+                seeders,
+                leechers
             });
         });
         return data;
