@@ -88,6 +88,32 @@ class Parser {
         });
         console.log(seasons);
         debugger;
+        return seasons;
+    }
+    static parseData($) {
+        const data = [];
+        const titleLinks = $('td.text-nowrap.text-trunc a');
+        titleLinks.each(i => {
+            const title = titleLinks.eq(i).text();
+            const url = titleLinks.eq(i).attr('href');
+            const sound = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(0).text();
+            const language = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(1).text();
+            const quality = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(2).text().trim();
+            const magnet = $('.spr.dl-magnet').eq(i).parent().attr('href');
+            const hash = Common.magnetToHash(magnet);
+            const size = $('.progress-bar.prog-blue.prog-l').eq(i).text();
+            data.push({
+                title,
+                url,
+                sound,
+                language,
+                quality,
+                magnet,
+                hash,
+                size
+            });
+        });
+        return data;
     }
 }
 class Zooqle {
@@ -112,9 +138,15 @@ class Zooqle {
             });
         });
     }
-    getHrefData(dataHred) {
+    getHrefData(dataHref) {
         return __awaiter(this, void 0, void 0, function* () {
-            // return new Promise
+            return new Promise((resolve, reject) => {
+                Common.load(`${this.endPoint}${dataHref}`).then(res => {
+                    global.$ = res.$;
+                    debugger;
+                    resolve(Parser.parseData(res.$));
+                });
+            });
         });
     }
 }
