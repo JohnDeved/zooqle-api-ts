@@ -1,0 +1,6 @@
+overall
+  ☐ support imdb movie search
+  ☐ implement mocha tests
+  ☐ load datahref with response
+  ☐ stresstest endpoint to see how much requests can be done safely
+  ☐ implement automatic request staller according to stress test results
