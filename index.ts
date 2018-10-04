@@ -258,8 +258,21 @@ class Parser {
   }
 }
 
+class Enums {
+  public static SORT = {
+    seeders: 's=ns',
+    date: 's=dt',
+    size: 's=sz'
+  }
+  public static SORT_TYPE = {
+    descending: 'sd=d',
+    ascending: 'sd=a'
+  }
+}
+
 export class Zooqle {
   public endPoint = 'https://zooqle.com'
+  public enums = Enums
 
   public async search (query: string) {
     return new Promise<Iresponse>((resolve, reject) => {
