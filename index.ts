@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
+import { URL } from 'url'
 
 interface IsearchResults {
   type: string
@@ -167,7 +168,7 @@ class Parser {
     return response
   }
 
-  public static parseShow ($: CheerioStatic) {
+  public static parseShow ($: CheerioStatic, loadData?: boolean) {
     const title = $('td.h4.sh1').text()
     const [from, to] = $('.sh2 i').text().split('→').map(x => x.trim())
     const summary = $('td.small.text-muted.sh2').text()
@@ -274,8 +275,16 @@ export class Zooqle {
   public endPoint = 'https://zooqle.com'
   public enums = Enums
 
-  public async search (query: string) {
+  public async search (query: string, parameters: string[] = []) {
     return new Promise<Iresponse>((resolve, reject) => {
+      const url = new URL(`${this.endPoint}/search`)
+      url.searchParams.append('q', query)
+
+      parameters.forEach(param => {
+        const [key, val] = param.split('=')
+        url.searchParams.append(key, val)
+      })
+
       Common.load(`${this.endPoint}/search?q=${query}`)
         .then(res => {
           switch (true) {

@@ -48,9 +48,21 @@ interface Idata {
     seeders: number;
     leechers: number;
 }
+declare class Enums {
+    static SORT: {
+        seeders: string;
+        date: string;
+        size: string;
+    };
+    static SORT_TYPE: {
+        descending: string;
+        ascending: string;
+    };
+}
 export declare class Zooqle {
     endPoint: string;
-    search(query: string): Promise<Iresponse>;
+    enums: typeof Enums;
+    search(query: string, parameters?: string[]): Promise<Iresponse>;
     getHrefData(dataHref: string): Promise<Idata[]>;
 }
 export declare const zooqle: Zooqle;

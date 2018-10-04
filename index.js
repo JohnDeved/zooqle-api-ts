@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = require("axios");
 const cheerio = require("cheerio");
+const url_1 = require("url");
 class Common {
     static load(url) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -94,7 +95,7 @@ class Parser {
         };
         return response;
     }
-    static parseShow($) {
+    static parseShow($, loadData) {
         const title = $('td.h4.sh1').text();
         const [from, to] = $('.sh2 i').text().split('→').map(x => x.trim());
         const summary = $('td.small.text-muted.sh2').text();
@@ -171,13 +172,31 @@ class Parser {
         return data;
     }
 }
+class Enums {
+}
+Enums.SORT = {
+    seeders: 's=ns',
+    date: 's=dt',
+    size: 's=sz'
+};
+Enums.SORT_TYPE = {
+    descending: 'sd=d',
+    ascending: 'sd=a'
+};
 class Zooqle {
     constructor() {
         this.endPoint = 'https://zooqle.com';
+        this.enums = Enums;
     }
-    search(query) {
+    search(query, parameters = []) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
+                const url = new url_1.URL(`${this.endPoint}/search`);
+                url.searchParams.append('q', query);
+                parameters.forEach(param => {
+                    const [key, val] = param.split('=');
+                    url.searchParams.append(key, val);
+                });
                 Common.load(`${this.endPoint}/search?q=${query}`)
                     .then(res => {
                     switch (true) {
