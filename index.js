@@ -50,11 +50,15 @@ class Parser {
                 hash: Common.magnetToHash(magnet)
             });
         });
-        const response = {
+        const searchResponse = {
             searchResults,
             search,
             pageSize,
             total
+        };
+        const response = {
+            type: 'search',
+            searchResponse
         };
         return response;
     }
@@ -86,20 +90,34 @@ class Parser {
                 episodes
             });
         });
-        console.log(seasons);
-        debugger;
-        return seasons;
+        const showResponse = {
+            title,
+            from,
+            to,
+            summary,
+            seasons
+        };
+        const response = {
+            type: 'show',
+            showResponse
+        };
+        return response;
     }
     static parseData($) {
         const data = [];
         const titleLinks = $('td.text-nowrap.text-trunc a');
         titleLinks.each(i => {
             const title = titleLinks.eq(i).text();
-            const url = titleLinks.eq(i).attr('href');
-            // todo make these work 100% of the time
+            const metaUrl = titleLinks.eq(i).attr('href');
             let sound = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(0).text();
             let language = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(1).text().trim();
             let quality = titleLinks.eq(i).parent().find('div.text-nowrap span').eq(2).text().trim();
+            if (sound === '')
+                sound = 'Str';
+            if (language === '')
+                language = 'Str';
+            if (quality === '')
+                [quality] = title.match(/\d{3,4}p/) || ['Str'];
             const magnet = $('.spr.dl-magnet').eq(i).parent().attr('href');
             const hash = Common.magnetToHash(magnet);
             const size = $('.progress-bar.prog-blue.prog-l').eq(i).text();
@@ -107,7 +125,7 @@ class Parser {
                 .match(/\d+/g).map(x => parseInt(x, 10));
             data.push({
                 title,
-                url,
+                metaUrl,
                 sound,
                 language,
                 quality,
@@ -147,8 +165,6 @@ class Zooqle {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
                 Common.load(`${this.endPoint}${dataHref}`).then(res => {
-                    global.$ = res.$;
-                    debugger;
                     resolve(Parser.parseData(res.$));
                 });
             });
