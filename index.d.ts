@@ -1,4 +1,5 @@
 interface IsearchResults {
+    type: string;
     href: string;
     title: string;
     size: string;

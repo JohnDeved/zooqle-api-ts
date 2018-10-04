@@ -40,7 +40,39 @@ class Parser {
             const size = progress.eq(0).text();
             const [seeders, leechers] = progress.eq(1).attr('title')
                 .match(/\d+/g).map(x => parseInt(x, 10));
+            const typeElement = $('.zqf.text-muted2.zqf-small.pad-r2').eq(i);
+            let type = '';
+            switch (true) {
+                case typeElement.hasClass('zqf-movies'):
+                    type = 'movie';
+                    break;
+                case typeElement.hasClass('zqf-tv'):
+                    type = 'show';
+                    break;
+                case typeElement.hasClass('zqf-anime'):
+                    type = 'anime';
+                    break;
+                case typeElement.hasClass('zqf-game'):
+                    type = 'game';
+                    break;
+                case typeElement.hasClass('zqf-app'):
+                    type = 'app';
+                    break;
+                case typeElement.hasClass('zqf-music'):
+                    type = 'music';
+                    break;
+                case typeElement.hasClass('zqf-book'):
+                    type = 'book';
+                    break;
+                case typeElement.hasClass('zqf-files'):
+                    type = 'other';
+                    break;
+                default:
+                    type = 'unknown';
+                    break;
+            }
             searchResults.push({
+                type,
                 href: e.attr('href'),
                 title: e.text(),
                 size,
