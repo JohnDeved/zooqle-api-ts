@@ -138,6 +138,9 @@ class Parser {
     }
     static parseMovie($) {
         const moviesElement = $('td.text-nowrap.text-trunc');
+        const title = $('h4.margin-top-10').text().trim();
+        const summary = $('h4.margin-top-10').parent().find('p.small.text-muted').text().trim();
+        const release = $('h4.margin-top-10').parent().find('h5.small.text-muted').text().trim().replace('Released • ', '');
         let movieresult;
         moviesElement.each(i => {
             const title = moviesElement.eq(i).find('a').text();
