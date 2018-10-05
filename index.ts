@@ -44,6 +44,7 @@ interface Iresponse {
   type: string
   searchResponse?: IsearchResponse
   showResponse?: IshowResponse
+  movieResponse?: ImovieResponse
 }
 
 interface Idata {
@@ -276,7 +277,12 @@ class Parser {
       results
     }
 
-    return movieResponse
+    const response: Iresponse = {
+      type: 'show',
+      movieResponse
+    }
+
+    return response
   }
 
   public static parseData ($: CheerioStatic) {
