@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require(".");
-_1.zooqle.search('**').then((response) => {
+_1.zooqle.search('tt0468569').then((response) => {
     console.log(response);
     debugger;
 });

@@ -1,6 +1,6 @@
 import { zooqle } from '.'
 
-zooqle.search('**').then((response) => {
+zooqle.search('tt0468569').then((response) => {
   console.log(response)
   debugger
 })

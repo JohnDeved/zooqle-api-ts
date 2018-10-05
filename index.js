@@ -136,6 +136,22 @@ class Parser {
         };
         return response;
     }
+    static parseMovie($) {
+        const moviesElement = $('td.text-nowrap.text-trunc');
+        let movieresult;
+        moviesElement.each(i => {
+            const title = moviesElement.eq(i).find('a').text();
+            const href = moviesElement.eq(i).find('a').attr('href');
+            const sound = moviesElement.eq(i).find('span').eq(0).text();
+            const language = moviesElement.eq(i).find('span').eq(1).text();
+            const [quality] = title.match(/\d{3,4}p/) || ['Str'];
+            const size = moviesElement.eq(i).parent().find('.progress-bar.prog-blue').text();
+            const [seeders, leechers] = moviesElement.eq(i).parent()
+                .find('.progress-bar.prog-green').parent().attr('title')
+                .match(/\d+/g).map(x => parseInt(x, 10));
+        });
+        const movieResponse = {};
+    }
     static parseData($) {
         const data = [];
         const titleLinks = $('td.text-nowrap.text-trunc a');
@@ -203,7 +219,7 @@ class Zooqle {
                         case /\/tv\//.test(res.url):
                             return resolve(Parser.parseShow(res.$)); // handle tv
                         case /\/movie\//.test(res.url):
-                            return resolve(); // handle movie
+                            return resolve(Parser.parseMovie(res.$)); // handle movie
                         default:
                             return resolve(Parser.parseSearch(res.$));
                     }

@@ -1,5 +1,6 @@
 overall
   ☐ support imdb movie search
+  ☐ support torrent hash search
   ☐ implement mocha tests
   ☐ load datahref with response
   ☐ stresstest endpoint to see how much requests can be done safely
