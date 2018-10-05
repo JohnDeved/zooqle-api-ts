@@ -59,6 +59,24 @@ interface Idata {
   leechers: number
 }
 
+interface ImovieResults {
+  title: string
+  href: string
+  sound: string
+  language: string
+  quality: string
+  size: string
+  seeders: number
+  leechers: number
+}
+
+interface ImovieResponse {
+  title: string
+  summary: string
+  release: string
+  results: ImovieResults[]
+}
+
 interface Iload {
   $: CheerioStatic
   url: string
@@ -226,7 +244,7 @@ class Parser {
     const summary = $('h4.margin-top-10').parent().find('p.small.text-muted').text().trim()
     const release = $('h4.margin-top-10').parent().find('h5.small.text-muted').text().trim().replace('Released • ', '')
 
-    let movieresult
+    let results: ImovieResults[] = []
 
     moviesElement.each(i => {
       const title = moviesElement.eq(i).find('a').text()
@@ -239,11 +257,26 @@ class Parser {
         .find('.progress-bar.prog-green').parent().attr('title')
         .match(/\d+/g).map(x => parseInt(x, 10))
 
+      results.push({
+        title,
+        href,
+        sound,
+        language,
+        quality,
+        size,
+        seeders,
+        leechers
+      })
     })
 
-    const movieResponse = {
-
+    const movieResponse: ImovieResponse = {
+      title,
+      summary,
+      release,
+      results
     }
+
+    return movieResponse
   }
 
   public static parseData ($: CheerioStatic) {

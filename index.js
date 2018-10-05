@@ -141,7 +141,7 @@ class Parser {
         const title = $('h4.margin-top-10').text().trim();
         const summary = $('h4.margin-top-10').parent().find('p.small.text-muted').text().trim();
         const release = $('h4.margin-top-10').parent().find('h5.small.text-muted').text().trim().replace('Released • ', '');
-        let movieresult;
+        let results = [];
         moviesElement.each(i => {
             const title = moviesElement.eq(i).find('a').text();
             const href = moviesElement.eq(i).find('a').attr('href');
@@ -152,8 +152,24 @@ class Parser {
             const [seeders, leechers] = moviesElement.eq(i).parent()
                 .find('.progress-bar.prog-green').parent().attr('title')
                 .match(/\d+/g).map(x => parseInt(x, 10));
+            results.push({
+                title,
+                href,
+                sound,
+                language,
+                quality,
+                size,
+                seeders,
+                leechers
+            });
         });
-        const movieResponse = {};
+        const movieResponse = {
+            title,
+            summary,
+            release,
+            results
+        };
+        return movieResponse;
     }
     static parseData($) {
         const data = [];
