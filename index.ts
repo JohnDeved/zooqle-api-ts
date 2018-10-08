@@ -85,6 +85,7 @@ interface Iload {
 
 class Common {
   public static async load (url: string): Promise<Iload> {
+    console.log(url)
     const result = await axios.get(url)
 
     return {
@@ -278,7 +279,7 @@ class Parser {
     }
 
     const response: Iresponse = {
-      type: 'show',
+      type: 'movie',
       movieResponse
     }
 
@@ -325,7 +326,7 @@ class Parser {
   }
 
   public static parseTorrent ($: CheerioStatic) {
-    const sourceElement = $(':contains("– Indexed from –"):last').next()
+    const sourceElement = $(':contains("– Indexed from –")').last().next()
 
     const source = sourceElement.text().trim()
     const sourceUrl = sourceElement.attr('href')
@@ -333,8 +334,9 @@ class Parser {
     const magnet = $('.dl-magnet').parent().attr('href')
     const hash = Common.magnetToHash(magnet)
 
-    const [size, date] = $('.zqf-files:last').parent()
-      .contents().toArray().filter((x: any) => x.nodeType === 3)
+    const [size, date] = $('.zqf-files').last().parent()
+      .contents().toArray().filter((x: any) => x.type === 'text')
+      .map(x => x.data)
 
     const torrent = {
       source,
@@ -400,7 +402,7 @@ export class Zooqle {
 
   public async getTorrentData (torrentUrl: string) {
     return new Promise<any>((resolve, reject) => {
-      Common.load(`${resolve}${torrentUrl}`).then(res => {
+      Common.load(`${this.endPoint}${torrentUrl}`).then(res => {
         resolve(Parser.parseTorrent(res.$))
       })
     })

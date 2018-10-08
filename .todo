@@ -1,5 +1,6 @@
 overall
-  ☐ support imdb movie search
+  ✔ support imdb movie search @done(18-10-08 07:45)
+  ✔ parse torrent @done(18-10-08 07:46)
   ☐ support torrent hash search
   ☐ implement mocha tests
   ☐ load datahref with response
