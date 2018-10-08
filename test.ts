@@ -1,7 +1,8 @@
 import { zooqle } from '.'
 
-zooqle.search('tt2575988').then(response => {
-  // code
+zooqle.search('115E8B3596DE77BF6A463B2654697F47F4064DB6').then(response => {
+  console.log(1, response)
+  debugger
 })
 // zooqle.search('tt2575988').then(response => console.log(2, response.type))
 // zooqle.search('silicon valley').then(response => console.log(3, response.type))
