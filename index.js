@@ -219,7 +219,7 @@ class Parser {
         const hash = Common.magnetToHash(magnet);
         const [size, date] = $('.zqf-files').last().parent()
             .contents().toArray().filter((x) => x.type === 'text')
-            .map(x => x.data);
+            .map(x => x.data.trim());
         const torrent = {
             source,
             sourceUrl,

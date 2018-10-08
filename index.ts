@@ -78,6 +78,15 @@ interface ImovieResponse {
   results: ImovieResults[]
 }
 
+interface Itorrent {
+  source?: string
+  sourceUrl?: string
+  magnet: string,
+  hash: string,
+  size: string,
+  date: string
+}
+
 interface Iload {
   $: CheerioStatic
   url: string
@@ -336,9 +345,9 @@ class Parser {
 
     const [size, date] = $('.zqf-files').last().parent()
       .contents().toArray().filter((x: any) => x.type === 'text')
-      .map(x => x.data)
+      .map(x => x.data.trim())
 
-    const torrent = {
+    const torrent: Itorrent = {
       source,
       sourceUrl,
       magnet,
@@ -401,7 +410,7 @@ export class Zooqle {
   }
 
   public async getTorrentData (torrentUrl: string) {
-    return new Promise<any>((resolve, reject) => {
+    return new Promise<Itorrent>((resolve, reject) => {
       Common.load(`${this.endPoint}${torrentUrl}`).then(res => {
         resolve(Parser.parseTorrent(res.$))
       })

@@ -65,6 +65,14 @@ interface ImovieResponse {
     release: string;
     results: ImovieResults[];
 }
+interface Itorrent {
+    source?: string;
+    sourceUrl?: string;
+    magnet: string;
+    hash: string;
+    size: string;
+    date: string;
+}
 declare class Enums {
     static SORT: {
         seeders: string;
@@ -81,7 +89,7 @@ export declare class Zooqle {
     enums: typeof Enums;
     search(query: string, parameters?: string[]): Promise<Iresponse>;
     getHrefData(dataHref: string): Promise<Idata[]>;
-    getTorrentData(torrentUrl: string): Promise<any>;
+    getTorrentData(torrentUrl: string): Promise<Itorrent>;
 }
 export declare const zooqle: Zooqle;
 export {};
