@@ -4,7 +4,7 @@
 - query: **string**
 - params _(optimal)_: **string array**
 
-**return**: Promise<[returns](#Returns)>
+**return**: Promise<[returns](#returns)>
 
 ```js
 // (query: string, params?: string[]): Promise
