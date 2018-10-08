@@ -3,6 +3,6 @@ overall
   ✔ parse torrent @done(18-10-08 07:46)
   ✔ support torrent hash search @done(18-10-08 18:29)
   ☐ implement mocha tests
-  ☐ load datahref with response
-  ☐ stresstest endpoint to see how much requests can be done safely
-  ☐ implement automatic request staller according to stress test results
+  ☐ load datahref with response // probs not gonna happen...
+  ✔ stresstest endpoint to see how much requests can be done safely @done(18-10-08 18:38)
+  ✔ implement automatic request staller according to stress test results // no need @done(18-10-08 18:38)
