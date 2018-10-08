@@ -36,6 +36,7 @@ interface Iresponse {
     searchResponse?: IsearchResponse;
     showResponse?: IshowResponse;
     movieResponse?: ImovieResponse;
+    torrentResponse?: Itorrent;
 }
 interface Idata {
     title: string;

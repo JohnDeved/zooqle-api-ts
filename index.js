@@ -263,8 +263,15 @@ class Zooqle {
                             return resolve(Parser.parseShow(res.$)); // handle tv
                         case /\/movie\//.test(res.url):
                             return resolve(Parser.parseMovie(res.$)); // handle movie
+                        case /\/search/.test(res.url):
+                            return resolve(Parser.parseSearch(res.$)); // handle search
                         default:
-                            return resolve(Parser.parseSearch(res.$));
+                            const torrentResponse = Parser.parseTorrent(res.$); // handle direct torrent
+                            const response = {
+                                type: 'torrent',
+                                torrentResponse
+                            };
+                            resolve(response);
                     }
                 })
                     .catch(reject);
