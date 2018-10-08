@@ -1,9 +1,9 @@
 import { zooqle } from '.'
 
-zooqle.search('tt0468569').then((response) => {
-  console.log(response)
-  debugger
-})
+// zooqle.search('tt0468569').then((response) => {
+//   console.log(response)
+//   debugger
+// })
 
 // zooqle.search('tt2575988').then(console.log)
 

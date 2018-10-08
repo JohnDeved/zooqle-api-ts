@@ -62,7 +62,7 @@ interface Idata {
 
 interface ImovieResults {
   title: string
-  href: string
+  torrentUrl: string
   sound: string
   language: string
   quality: string
@@ -249,7 +249,7 @@ class Parser {
 
     moviesElement.each(i => {
       const title = moviesElement.eq(i).find('a').text()
-      const href = moviesElement.eq(i).find('a').attr('href')
+      const torrentUrl = moviesElement.eq(i).find('a').attr('href')
       const sound = moviesElement.eq(i).find('span').eq(0).text()
       const language = moviesElement.eq(i).find('span').eq(1).text()
       const [quality] = title.match(/\d{3,4}p/) || ['Str']
@@ -260,7 +260,7 @@ class Parser {
 
       results.push({
         title,
-        href,
+        torrentUrl,
         sound,
         language,
         quality,
@@ -323,6 +323,30 @@ class Parser {
 
     return data
   }
+
+  public static parseTorrent ($: CheerioStatic) {
+    const sourceElement = $(':contains("– Indexed from –"):last').next()
+
+    const source = sourceElement.text().trim()
+    const sourceUrl = sourceElement.attr('href')
+
+    const magnet = $('.dl-magnet').parent().attr('href')
+    const hash = Common.magnetToHash(magnet)
+
+    const [size, date] = $('.zqf-files:last').parent()
+      .contents().toArray().filter((x: any) => x.nodeType === 3)
+
+    const torrent = {
+      source,
+      sourceUrl,
+      magnet,
+      hash,
+      size,
+      date
+    }
+
+    return torrent
+  }
 }
 
 class Enums {
@@ -370,6 +394,14 @@ export class Zooqle {
     return new Promise<Idata[]>((resolve, reject) => {
       Common.load(`${this.endPoint}${dataHref}`).then(res => {
         resolve(Parser.parseData(res.$))
+      })
+    })
+  }
+
+  public async getTorrentData (torrentUrl: string) {
+    return new Promise<any>((resolve, reject) => {
+      Common.load(`${resolve}${torrentUrl}`).then(res => {
+        resolve(Parser.parseTorrent(res.$))
       })
     })
   }

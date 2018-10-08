@@ -144,7 +144,7 @@ class Parser {
         let results = [];
         moviesElement.each(i => {
             const title = moviesElement.eq(i).find('a').text();
-            const href = moviesElement.eq(i).find('a').attr('href');
+            const torrentUrl = moviesElement.eq(i).find('a').attr('href');
             const sound = moviesElement.eq(i).find('span').eq(0).text();
             const language = moviesElement.eq(i).find('span').eq(1).text();
             const [quality] = title.match(/\d{3,4}p/) || ['Str'];
@@ -154,7 +154,7 @@ class Parser {
                 .match(/\d+/g).map(x => parseInt(x, 10));
             results.push({
                 title,
-                href,
+                torrentUrl,
                 sound,
                 language,
                 quality,
@@ -169,7 +169,11 @@ class Parser {
             release,
             results
         };
-        return movieResponse;
+        const response = {
+            type: 'show',
+            movieResponse
+        };
+        return response;
     }
     static parseData($) {
         const data = [];
@@ -205,6 +209,24 @@ class Parser {
             });
         });
         return data;
+    }
+    static parseTorrent($) {
+        const sourceElement = $(':contains("– Indexed from –"):last').next();
+        const source = sourceElement.text().trim();
+        const sourceUrl = sourceElement.attr('href');
+        const magnet = $('.dl-magnet').parent().attr('href');
+        const hash = Common.magnetToHash(magnet);
+        const [size, date] = $('.zqf-files:last').parent()
+            .contents().toArray().filter((x) => x.nodeType === 3);
+        const torrent = {
+            source,
+            sourceUrl,
+            magnet,
+            hash,
+            size,
+            date
+        };
+        return torrent;
     }
 }
 class Enums {
@@ -252,6 +274,15 @@ class Zooqle {
             return new Promise((resolve, reject) => {
                 Common.load(`${this.endPoint}${dataHref}`).then(res => {
                     resolve(Parser.parseData(res.$));
+                });
+            });
+        });
+    }
+    getTorrentData(torrentUrl) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => {
+                Common.load(`${resolve}${torrentUrl}`).then(res => {
+                    resolve(Parser.parseTorrent(res.$));
                 });
             });
         });

@@ -35,6 +35,7 @@ interface Iresponse {
     type: string;
     searchResponse?: IsearchResponse;
     showResponse?: IshowResponse;
+    movieResponse?: ImovieResponse;
 }
 interface Idata {
     title: string;
@@ -47,6 +48,22 @@ interface Idata {
     size: string;
     seeders: number;
     leechers: number;
+}
+interface ImovieResults {
+    title: string;
+    torrentUrl: string;
+    sound: string;
+    language: string;
+    quality: string;
+    size: string;
+    seeders: number;
+    leechers: number;
+}
+interface ImovieResponse {
+    title: string;
+    summary: string;
+    release: string;
+    results: ImovieResults[];
 }
 declare class Enums {
     static SORT: {
@@ -64,6 +81,7 @@ export declare class Zooqle {
     enums: typeof Enums;
     search(query: string, parameters?: string[]): Promise<Iresponse>;
     getHrefData(dataHref: string): Promise<Idata[]>;
+    getTorrentData(torrentUrl: string): Promise<any>;
 }
 export declare const zooqle: Zooqle;
 export {};
