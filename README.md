@@ -28,7 +28,7 @@ zooqle.search('silicon valley').then(response => {
 
 **example:**
 ```js
-zooqle.search('silicon valley').then(response => {
+zooqle.search('tt2575988').then(response => {
   // code
 })
 ```
