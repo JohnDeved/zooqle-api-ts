@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio'
 import { URL } from 'url'
 
 interface IsearchResults {
-  type: string
+  filetype: string
   href: string
   title: string
   size: string
@@ -155,47 +155,47 @@ class Parser {
 
       const typeElement = $('.zqf.text-muted2.zqf-small.pad-r2').eq(i)
 
-      let type = ''
+      let filetype = ''
       switch (true) {
         case typeElement.hasClass('zqf-movies'):
-          type = 'movie'
+          filetype = 'movie'
           break
 
         case typeElement.hasClass('zqf-tv'):
-          type = 'show'
+          filetype = 'show'
           break
 
         case typeElement.hasClass('zqf-anime'):
-          type = 'anime'
+          filetype = 'anime'
           break
 
         case typeElement.hasClass('zqf-game'):
-          type = 'game'
+          filetype = 'game'
           break
 
         case typeElement.hasClass('zqf-app'):
-          type = 'app'
+          filetype = 'app'
           break
 
         case typeElement.hasClass('zqf-music'):
-          type = 'music'
+          filetype = 'music'
           break
 
         case typeElement.hasClass('zqf-book'):
-          type = 'book'
+          filetype = 'book'
           break
 
         case typeElement.hasClass('zqf-files'):
-          type = 'other'
+          filetype = 'other'
           break
 
         default:
-          type = 'unknown'
+          filetype = 'unknown'
           break
       }
 
       searchResults.push({
-        type,
+        filetype,
         href: e.attr('href'),
         title: e.text(),
         size,
@@ -414,7 +414,7 @@ export class Zooqle {
                 torrentResponse
               }
 
-              resolve(response)
+              return resolve(response)
           }
         })
         .catch(reject)

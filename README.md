@@ -54,7 +54,7 @@ example return:
     "searchResponse": {
         "searchResults": [
             {
-                "type": "show",
+                "filetype": "show",
                 "href": "/silicon-valley-s04e07-hdtv-x264-sva-rartv-w8suk.html",
                 "title": "Silicon Valley S04E07 HDTV x264-SVA[rartv]",
                 "size": "150 MB",

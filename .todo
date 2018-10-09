@@ -8,6 +8,6 @@ overall
   ✔ implement automatic request staller according to stress test results // no need @done(18-10-08 18:38)
   ☐ torrent response title
   ☐ torrent response file type 
-  ☐ rename torrent & search result types to "filetype" to avoid confusion
+  ✔ rename torrent & search result types to "filetype" to avoid confusion @done(18-10-09 08:24)
   ✔ changeable endpoint // allready done @done(18-10-08 19:58)
   ☐ complete readme
