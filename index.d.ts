@@ -74,20 +74,22 @@ interface Itorrent {
     size: string;
     date: string;
 }
+interface Isort {
+    seeders: string;
+    date: string;
+    size: string;
+}
+interface IsortType {
+    descending: string;
+    ascending: string;
+}
 declare class Enums {
-    static SORT: {
-        seeders: string;
-        date: string;
-        size: string;
-    };
-    static SORT_TYPE: {
-        descending: string;
-        ascending: string;
-    };
+    SORT: Isort;
+    SORT_TYPE: IsortType;
 }
 export declare class Zooqle {
     endPoint: string;
-    enums: typeof Enums;
+    enums: Enums;
     search(query: string, parameters?: string[]): Promise<Iresponse>;
     getHrefData(dataHref: string): Promise<Idata[]>;
     getTorrentData(torrentUrl: string): Promise<Itorrent>;

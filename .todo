@@ -9,3 +9,5 @@ overall
   ☐ torrent response title
   ☐ torrent response file type 
   ☐ rename torrent & search result types to "filetype" to avoid confusion
+  ✔ changeable endpoint // allready done @done(18-10-08 19:58)
+  ☐ complete readme

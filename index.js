@@ -11,6 +11,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = require("axios");
 const cheerio = require("cheerio");
 const url_1 = require("url");
+class Enums {
+    constructor() {
+        this.SORT = {
+            seeders: 's=ns',
+            date: 's=dt',
+            size: 's=sz'
+        };
+        this.SORT_TYPE = {
+            descending: 'sd=d',
+            ascending: 'sd=a'
+        };
+    }
+}
 class Common {
     static load(url) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -231,21 +244,10 @@ class Parser {
         return torrent;
     }
 }
-class Enums {
-}
-Enums.SORT = {
-    seeders: 's=ns',
-    date: 's=dt',
-    size: 's=sz'
-};
-Enums.SORT_TYPE = {
-    descending: 'sd=d',
-    ascending: 'sd=a'
-};
 class Zooqle {
     constructor() {
         this.endPoint = 'https://zooqle.com';
-        this.enums = Enums;
+        this.enums = new Enums();
     }
     search(query, parameters = []) {
         return __awaiter(this, void 0, void 0, function* () {

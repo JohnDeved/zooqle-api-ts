@@ -82,15 +82,38 @@ interface ImovieResponse {
 interface Itorrent {
   source?: string
   sourceUrl?: string
-  magnet: string,
-  hash: string,
-  size: string,
+  magnet: string
+  hash: string
+  size: string
   date: string
 }
 
 interface Iload {
   $: CheerioStatic
   url: string
+}
+
+interface Isort {
+  seeders: string
+  date: string
+  size: string
+}
+
+interface IsortType {
+  descending: string
+  ascending: string
+}
+
+class Enums {
+  public SORT: Isort = {
+    seeders: 's=ns',
+    date: 's=dt',
+    size: 's=sz'
+  }
+  public SORT_TYPE: IsortType = {
+    descending: 'sd=d',
+    ascending: 'sd=a'
+  }
 }
 
 class Common {
@@ -361,21 +384,9 @@ class Parser {
   }
 }
 
-class Enums {
-  public static SORT = {
-    seeders: 's=ns',
-    date: 's=dt',
-    size: 's=sz'
-  }
-  public static SORT_TYPE = {
-    descending: 'sd=d',
-    ascending: 'sd=a'
-  }
-}
-
 export class Zooqle {
   public endPoint = 'https://zooqle.com'
-  public enums = Enums
+  public enums = new Enums()
 
   public async search (query: string, parameters: string[] = []) {
     return new Promise<Iresponse>((resolve, reject) => {

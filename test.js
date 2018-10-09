@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require(".");
-_1.zooqle.search('115E8B3596DE77BF6A463B2654697F47F4064DB6').then(response => {
+_1.zooqle.search('silicon valley').then(response => {
     console.log(1, response);
     debugger;
 });
