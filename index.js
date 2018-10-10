@@ -38,6 +38,28 @@ class Common {
     static magnetToHash(magnet) {
         return magnet.match(/:([\w\d]{40})/)[1];
     }
+    static iconToType(icon) {
+        switch (true) {
+            case icon.hasClass('zqf-movies'):
+                return 'movie';
+            case icon.hasClass('zqf-tv'):
+                return 'show';
+            case icon.hasClass('zqf-anime'):
+                return 'anime';
+            case icon.hasClass('zqf-game'):
+                return 'game';
+            case icon.hasClass('zqf-app'):
+                return 'app';
+            case icon.hasClass('zqf-music'):
+                return 'music';
+            case icon.hasClass('zqf-book'):
+                return 'book';
+            case icon.hasClass('zqf-files'):
+                return 'other';
+            default:
+                return 'unknown';
+        }
+    }
 }
 class Parser {
     static parseSearch($) {
@@ -55,37 +77,8 @@ class Parser {
             const size = progress.eq(0).text();
             const [seeders, leechers] = progress.eq(1).attr('title')
                 .match(/\d+/g).map(x => parseInt(x, 10));
-            const typeElement = $('.zqf.text-muted2.zqf-small.pad-r2').eq(i);
-            let filetype = '';
-            switch (true) {
-                case typeElement.hasClass('zqf-movies'):
-                    filetype = 'movie';
-                    break;
-                case typeElement.hasClass('zqf-tv'):
-                    filetype = 'show';
-                    break;
-                case typeElement.hasClass('zqf-anime'):
-                    filetype = 'anime';
-                    break;
-                case typeElement.hasClass('zqf-game'):
-                    filetype = 'game';
-                    break;
-                case typeElement.hasClass('zqf-app'):
-                    filetype = 'app';
-                    break;
-                case typeElement.hasClass('zqf-music'):
-                    filetype = 'music';
-                    break;
-                case typeElement.hasClass('zqf-book'):
-                    filetype = 'book';
-                    break;
-                case typeElement.hasClass('zqf-files'):
-                    filetype = 'other';
-                    break;
-                default:
-                    filetype = 'unknown';
-                    break;
-            }
+            const iconElement = $('.zqf.text-muted2.zqf-small.pad-r2').eq(i);
+            const filetype = Common.iconToType(iconElement);
             searchResults.push({
                 filetype,
                 href: e.attr('href'),
@@ -227,6 +220,8 @@ class Parser {
     static parseTorrent($) {
         const title = $('#torname').text().replace(/ /g, '.');
         const sourceElement = $(':contains("– Indexed from –")').last().next();
+        const iconElement = $('.tor-icon');
+        const filetype = Common.iconToType(iconElement);
         const source = sourceElement.text().trim();
         const sourceUrl = sourceElement.attr('href');
         const magnet = $('.dl-magnet').parent().attr('href');
@@ -235,6 +230,7 @@ class Parser {
             .contents().toArray().filter((x) => x.type === 'text')
             .map(x => x.data.trim());
         const torrent = {
+            filetype,
             title,
             source,
             sourceUrl,
