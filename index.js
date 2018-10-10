@@ -225,6 +225,7 @@ class Parser {
         return data;
     }
     static parseTorrent($) {
+        const title = $('#torname').text().replace(/ /g, '.');
         const sourceElement = $(':contains("– Indexed from –")').last().next();
         const source = sourceElement.text().trim();
         const sourceUrl = sourceElement.attr('href');
@@ -234,6 +235,7 @@ class Parser {
             .contents().toArray().filter((x) => x.type === 'text')
             .map(x => x.data.trim());
         const torrent = {
+            title,
             source,
             sourceUrl,
             magnet,

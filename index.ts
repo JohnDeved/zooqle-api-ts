@@ -80,6 +80,7 @@ interface ImovieResponse {
 }
 
 interface Itorrent {
+  title: string
   source?: string
   sourceUrl?: string
   magnet: string
@@ -359,6 +360,7 @@ class Parser {
   }
 
   public static parseTorrent ($: CheerioStatic) {
+    const title = $('#torname').text().replace(/ /g, '.')
     const sourceElement = $(':contains("– Indexed from –")').last().next()
 
     const source = sourceElement.text().trim()
@@ -372,6 +374,7 @@ class Parser {
       .map(x => x.data.trim())
 
     const torrent: Itorrent = {
+      title,
       source,
       sourceUrl,
       magnet,

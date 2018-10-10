@@ -67,6 +67,7 @@ interface ImovieResponse {
     results: ImovieResults[];
 }
 interface Itorrent {
+    title: string;
     source?: string;
     sourceUrl?: string;
     magnet: string;

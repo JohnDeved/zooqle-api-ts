@@ -6,7 +6,7 @@ overall
   ☐ load datahref with response // probs not gonna happen...
   ✔ stresstest endpoint to see how much requests can be done safely @done(18-10-08 18:38)
   ✔ implement automatic request staller according to stress test results // no need @done(18-10-08 18:38)
-  ☐ torrent response title
+  ✔ torrent response title @done(18-10-09 08:31)
   ☐ torrent response file type 
   ✔ rename torrent & search result types to "filetype" to avoid confusion @done(18-10-09 08:24)
   ✔ changeable endpoint // allready done @done(18-10-08 19:58)
