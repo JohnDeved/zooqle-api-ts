@@ -9,4 +9,10 @@ overall
   ✔ torrent response file type @done(18-10-10 07:31)
   ✔ rename torrent & search result types to "filetype" to avoid confusion @done(18-10-09 08:24)
   ✔ changeable endpoint // allready done @done(18-10-08 19:58)
-  ☐ complete readme
+
+  complete readme
+    ✔ document search api @done(18-10-10 08:13)
+    ✔ document search results @done(18-10-10 08:14)
+    ☐ document search paramenters
+    ✔ document getData @done(18-10-10 08:14)
+    ☐ document getTorrentData
