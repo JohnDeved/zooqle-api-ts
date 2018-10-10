@@ -1,3 +1,5 @@
+# Overview
+
 # Zooqle Search
 
 **Parameters:**
@@ -12,6 +14,9 @@ zooqle.search()
 ```
 
 ## Search by Query
+Search zooqle for something....
+
+You can use [search parameters](#search%20parameters) to sort results
 
 **return:** Promise<[search](#search)>
 
@@ -24,6 +29,7 @@ zooqle.search('silicon valley').then(response => {
 
 ## Search by IMDB Id
 
+Search zooqle for a certain Movie or Show.
 **return:** Promise<[show](#show) | [movie](#movie)>
 
 **example:**
@@ -34,6 +40,7 @@ zooqle.search('tt2575988').then(response => {
 ```
 
 ## Search by Magnet hash
+Search zooqle for a certain Torrent.
 
 **return:** Promise<[torrent](#torrent)>
 
@@ -44,10 +51,48 @@ zooqle.search('115E8B3596DE77BF6A463B2654697F47F4064DB6').then(response => {
 })
 ```
 
+## Search Parameters
+By using search parameters you can apply zooqle link parameters to any search that you do.
+
+**example:**
+```js
+// using enums
+const linkParameters = [
+    zooqle.enums.SORT.seeders, 
+    zooqle.enums.SORT_TYPE.descending
+]
+
+zooqle.search('silicon valley', linkParameters).then(response => {
+    // code
+}
+
+// passing strings
+const linkParameters = [
+    's=ns',
+    'sd=d'
+]
+
+zooqle.search('silicon valley', linkParameters).then(response => {
+    // code
+}
+```
+
+**value map:**
+```js
+// SORT
+seeders: 's=ns'
+date: 's=dt'
+size: 's=sz'
+
+// SORT_TYPE
+descending: 'sd=d'
+ascending: 'sd=a'
+```
+
 ## Returns
 
 ### search
-example return:
+**example return:**
 ```json
 {
     "type": "search",
@@ -73,7 +118,7 @@ example return:
 ```
 
 ### show
-example return:
+**example return:**
 ```json
 {
     "type": "show",
@@ -107,7 +152,7 @@ example return:
 ```
 
 ### movie
-example return:
+**example return:**
 ```json
 {
     "type": "movie",
@@ -133,7 +178,7 @@ example return:
 ```
 
 ### torrent
-example return:
+**example return:**
 ```json
 {
     "type": "torrent",
@@ -176,8 +221,7 @@ zooqle.getData('/misc/tveps.php?show=60573&se=5&ep=1').then(response => {
 ```
 
 ## data return
-example return:
-
+**example return:**
 ```json
 [
     {
@@ -225,7 +269,6 @@ zooqle.getTorrentData()
 ```
 
 **example:**
-
 ```js
 zooqle.getTorrentData('/batman-the-dark-knight-2008-2160p-x265-10bit-s90-joy-wqipm.html').then(response => {
     // code
@@ -233,7 +276,7 @@ zooqle.getTorrentData('/batman-the-dark-knight-2008-2160p-x265-10bit-s90-joy-wqi
 ```
 
 ## torrentData return
-example return:
+**example return:**
 ```json
 {
     "filetype": "movie",
