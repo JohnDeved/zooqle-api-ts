@@ -138,11 +138,14 @@ example return:
 {
     "type": "torrent",
     "torrentResponse": {
-        "source": "The Pirate Bay",
-        "magnet": "magnet:?xt=urn:btih:115E8B3596DE77BF6A463B2654697F47F4064DB6&dn=%5Bzooqle.com%5D%20Silicon%20Valley%20S04E07%20HDTV%20x264-SVA%5Brartv%5D&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.leechers-paradise.org:6969&tr=http://explodie.org:6969/announce&tr=http://tracker.mg64.net:6881/announce&tr=http://mgtracker.org:2710/announce&xl=157947942&tr=udp%3A%2F%2Feddie4.nl%3A6969&tr=udp%3A%2F%2F9.rarbg.to%3A2710&tr=udp%3A%2F%2Fmgtracker.org%3A6969&tr=udp%3A%2F%2Fp4p.arenabg.ch%3A1337&tr=udp%3A%2F%2Fp4p.arenabg.com%3A1337",
-        "hash": "115E8B3596DE77BF6A463B2654697F47F4064DB6",
-        "size": "150 MB",
-        "date": "Jun 5, 2017"
+        "filetype": "movie",
+        "title": "Batman.-.The.Dark.Knight.2008.(2160p.x265.10bit.S90.Joy).torrent",
+        "source": null,
+        "sourceUrl": null,
+        "magnet": "magnet:?xt=urn:btih:58CB561E616FA4FCCE3D5FE48AD4AB48101CDDCB&dn=%5Bzooqle.com%5D%20Batman%20-%20The%20Dark%20Knight%202008%20%282160p%20x265%2010bit%20S90%20Joy%29&tr=udp://tracker.leechers-paradise.org:6969&tr=http://explodie.org:6969/announce&tr=http://mgtracker.org:2710/announce&tr=http://tracker.mg64.net:6881/announce&tr=http://announce.xxx-tracker.com:2710/announce&xl=7262420065&tr=udp%3A%2F%2Fp4p.arenabg.com%3A1337&tr=udp%3A%2F%2F9.rarbg.to%3A2710&tr=udp%3A%2F%2Feddie4.nl%3A6969&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969",
+        "hash": "58CB561E616FA4FCCE3D5FE48AD4AB48101CDDCB",
+        "size": "6.8 GB",
+        "date": "Mar 24, 2018"
     }
 }
 ```

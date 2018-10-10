@@ -359,8 +359,10 @@ class Parser {
     const iconElement = $('.tor-icon')
     const filetype = Common.iconToType(iconElement)
 
-    const source = sourceElement.text().trim()
-    const sourceUrl = sourceElement.attr('href')
+    let source = sourceElement.text().trim()
+    if (source === '') { source = null }
+
+    const sourceUrl = sourceElement.attr('href') || null
 
     const magnet = $('.dl-magnet').parent().attr('href')
     const hash = Common.magnetToHash(magnet)
