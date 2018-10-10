@@ -281,7 +281,7 @@ class Zooqle {
             });
         });
     }
-    getHrefData(dataHref) {
+    getData(dataHref) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
                 Common.load(`${this.endPoint}${dataHref}`).then(res => {

@@ -93,7 +93,7 @@ export declare class Zooqle {
     endPoint: string;
     enums: Enums;
     search(query: string, parameters?: string[]): Promise<Iresponse>;
-    getHrefData(dataHref: string): Promise<Idata[]>;
+    getData(dataHref: string): Promise<Idata[]>;
     getTorrentData(torrentUrl: string): Promise<Itorrent>;
 }
 export declare const zooqle: Zooqle;

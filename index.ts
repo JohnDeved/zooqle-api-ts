@@ -423,7 +423,7 @@ export class Zooqle {
     })
   }
 
-  public async getHrefData (dataHref: string) {
+  public async getData (dataHref: string) {
     return new Promise<Idata[]>((resolve, reject) => {
       Common.load(`${this.endPoint}${dataHref}`).then(res => {
         resolve(Parser.parseData(res.$))

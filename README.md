@@ -13,7 +13,7 @@ zooqle.search()
 
 ## Search by Query
 
-**return:** [search](#search)
+**return:** Promise<[search](#search)>
 
 **example:**
 ```js
@@ -24,7 +24,7 @@ zooqle.search('silicon valley').then(response => {
 
 ## Search by IMDB Id
 
-**return:** [show](#show) | [movie](#movie)
+**return:** Promise<[show](#show) | [movie](#movie)>
 
 **example:**
 ```js
@@ -35,7 +35,7 @@ zooqle.search('tt2575988').then(response => {
 
 ## Search by Magnet hash
 
-**return:** [torrent](#torrent)
+**return:** Promise<[torrent](#torrent)>
 
 **example:**
 ```js
@@ -150,3 +150,61 @@ example return:
 }
 ```
 
+# Zooqle getData
+
+sometimes the scrapper search result will return a property called "dataHref", which is more data about the current result hidden within another subpage of zooqle.
+
+To get this data, you can simply pass the "dataHref" property to the getData function.
+
+**Parameters:**
+- query: **string**
+- params _(optimal)_: **string array**
+
+**return**: Promise<[data](#data%20return)>
+
+```js
+// (dataHref: string): Promise
+zooqle.getData()
+```
+
+**example:**
+
+```js
+zooqle.getHrefData('/misc/tveps.php?show=60573&se=5&ep=1').then(response => {
+    // code
+})
+```
+
+## data return
+
+example return:
+
+```json
+[
+    {
+        "title": "Silicon Valley S05E01 (1080p AMZN WEB-DL x265 HEVC 10bit AC3 5 1 Qman) [UTR]",
+        "metaUrl": "/silicon-valley-s05e01-1080p-amzn-web-dl-x265-hevc-10bit-ac3-5-1-wqqje.html",
+        "sound": "5.1",
+        "language": "en",
+        "quality": "1080p",
+        "magnet": "magnet:?xt=urn:btih:FE07B9CD13412F8635616E59FCC5EF98ACD5339E&dn=%5Bzooqle.com%5D%20Silicon%20Valley%20S05E01%20%281080p%20AMZN%20WEB-DL%20x265%20HEVC%2010bit%20AC3%205%201%20Qman%29%20%5BUTR%5D&tr=udp://tracker.leechers-paradise.org:6969&tr=http://explodie.org:6969/announce&tr=http://mgtracker.org:2710/announce&tr=http://tracker.mg64.net:6881/announce&tr=http://announce.xxx-tracker.com:2710/announce",
+        "hash": "FE07B9CD13412F8635616E59FCC5EF98ACD5339E",
+        "size": "656 MB",
+        "seeders": 17,
+        "leechers": 5
+    },
+    {
+        "title": "Silicon Valley (2014) - S05E01 (1080p AMZN WEB-DL x265 HEVC 10bit EAC3 6 0 RZeroX)",
+        "metaUrl": "/silicon-valley-2014-s05e01-1080p-amzn-web-dl-x265-hevc-10bit-eac-wqpau.html",
+        "sound": "5.1",
+        "language": "en",
+        "quality": "1080p",
+        "magnet": "magnet:?xt=urn:btih:94C1F498C41DB7F8E35CF43FEAC616448E2E9E9D&dn=%5Bzooqle.com%5D%20Silicon%20Valley%20%282014%29%20-%20S05E01%20%281080p%20AMZN%20WEB-DL%20x265%20HEVC%2010bit%20EAC3%206%200%20RZeroX%29&tr=udp://tracker.leechers-paradise.org:6969&tr=http://explodie.org:6969/announce&tr=http://mgtracker.org:2710/announce&tr=http://tracker.mg64.net:6881/announce&tr=http://announce.xxx-tracker.com:2710/announce",
+        "hash": "94C1F498C41DB7F8E35CF43FEAC616448E2E9E9D",
+        "size": "660 MB",
+        "seeders": 11,
+        "leechers": 8
+    },
+    ...
+]
+```
