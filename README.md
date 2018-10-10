@@ -16,7 +16,7 @@ zooqle.search()
 ## Search by Query
 Search zooqle for something....
 
-You can use [search parameters](#search%20parameters) to sort results
+You can use [search parameters](#search-parameters) to sort results
 
 **return:** Promise<[search](#search)>
 
@@ -205,7 +205,7 @@ To get this data, you can simply pass the "dataHref" property to the getData fun
 - query: **string**
 - params _(optimal)_: **string array**
 
-**return**: Promise<[data](#data%20return)>
+**return**: Promise<[data](#data-return)>
 
 ```js
 // (dataHref: string): Promise
