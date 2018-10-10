@@ -151,7 +151,7 @@ class Parser {
         let results = [];
         moviesElement.each(i => {
             const title = moviesElement.eq(i).find('a').text();
-            const torrentUrl = moviesElement.eq(i).find('a').attr('href');
+            const torrentHref = moviesElement.eq(i).find('a').attr('href');
             const sound = moviesElement.eq(i).find('span').eq(0).text();
             const language = moviesElement.eq(i).find('span').eq(1).text();
             const [quality] = title.match(/\d{3,4}p/) || ['Str'];
@@ -161,7 +161,7 @@ class Parser {
                 .match(/\d+/g).map(x => parseInt(x, 10));
             results.push({
                 title,
-                torrentUrl,
+                torrentHref,
                 sound,
                 language,
                 quality,
@@ -290,10 +290,10 @@ class Zooqle {
             });
         });
     }
-    getTorrentData(torrentUrl) {
+    getTorrentData(torrentHref) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                Common.load(`${this.endPoint}${torrentUrl}`).then(res => {
+                Common.load(`${this.endPoint}${torrentHref}`).then(res => {
                     resolve(Parser.parseTorrent(res.$));
                 });
             });

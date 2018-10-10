@@ -63,7 +63,7 @@ interface Idata {
 
 interface ImovieResults {
   title: string
-  torrentUrl: string
+  torrentHref: string
   sound: string
   language: string
   quality: string
@@ -278,7 +278,7 @@ class Parser {
 
     moviesElement.each(i => {
       const title = moviesElement.eq(i).find('a').text()
-      const torrentUrl = moviesElement.eq(i).find('a').attr('href')
+      const torrentHref = moviesElement.eq(i).find('a').attr('href')
       const sound = moviesElement.eq(i).find('span').eq(0).text()
       const language = moviesElement.eq(i).find('span').eq(1).text()
       const [quality] = title.match(/\d{3,4}p/) || ['Str']
@@ -289,7 +289,7 @@ class Parser {
 
       results.push({
         title,
-        torrentUrl,
+        torrentHref,
         sound,
         language,
         quality,
@@ -431,9 +431,9 @@ export class Zooqle {
     })
   }
 
-  public async getTorrentData (torrentUrl: string) {
+  public async getTorrentData (torrentHref: string) {
     return new Promise<Itorrent>((resolve, reject) => {
-      Common.load(`${this.endPoint}${torrentUrl}`).then(res => {
+      Common.load(`${this.endPoint}${torrentHref}`).then(res => {
         resolve(Parser.parseTorrent(res.$))
       })
     })

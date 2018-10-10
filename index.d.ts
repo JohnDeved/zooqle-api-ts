@@ -52,7 +52,7 @@ interface Idata {
 }
 interface ImovieResults {
     title: string;
-    torrentUrl: string;
+    torrentHref: string;
     sound: string;
     language: string;
     quality: string;
@@ -94,7 +94,7 @@ export declare class Zooqle {
     enums: Enums;
     search(query: string, parameters?: string[]): Promise<Iresponse>;
     getData(dataHref: string): Promise<Idata[]>;
-    getTorrentData(torrentUrl: string): Promise<Itorrent>;
+    getTorrentData(torrentHref: string): Promise<Itorrent>;
 }
 export declare const zooqle: Zooqle;
 export {};

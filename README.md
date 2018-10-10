@@ -118,7 +118,7 @@ example return:
         "results": [
             {
                 "title": "The Dark Knight 2008 IMAX BluRay 2160p x265 HDR DD 5 1[En Hi]-DT",
-                "torrentUrl": "/the-dark-knight-2008-imax-bluray-2160p-x265-hdr-dd-5-1-en-hi-dt-wyu0g.html",
+                "torrentHref": "/the-dark-knight-2008-imax-bluray-2160p-x265-hdr-dd-5-1-en-hi-dt-wyu0g.html",
                 "sound": "5.1",
                 "language": "en,hi",
                 "quality": "2160p",
@@ -152,7 +152,7 @@ example return:
 
 # Zooqle getData
 
-sometimes the scrapper search result will return a property called "dataHref", which is more data about the current result hidden within another subpage of zooqle.
+Sometimes the scrapper search result will return a property called "dataHref", which is more data about the current result hidden within another subpage of zooqle.
 
 To get this data, you can simply pass the "dataHref" property to the getData function.
 
@@ -170,13 +170,12 @@ zooqle.getData()
 **example:**
 
 ```js
-zooqle.getHrefData('/misc/tveps.php?show=60573&se=5&ep=1').then(response => {
+zooqle.getData('/misc/tveps.php?show=60573&se=5&ep=1').then(response => {
     // code
 })
 ```
 
 ## data return
-
 example return:
 
 ```json
@@ -207,4 +206,43 @@ example return:
     },
     ...
 ]
+```
+
+# Zooqle getTorrentData
+
+If you have an url to a torrent subpage of Zooqle you can use getTorrentData to get meta info about the torrent.
+
+Sometimes the scrapper will return a property called "torrentHref", which can be passed to this function.
+
+**Parameters:**
+- torrentHref: **string**
+
+**return**: Promise<[torrentData](#torrentdata%20return)>
+
+```js
+// (dataHref: string): Promise
+zooqle.getTorrentData()
+```
+
+**example:**
+
+```js
+zooqle.getTorrentData('/batman-the-dark-knight-2008-2160p-x265-10bit-s90-joy-wqipm.html').then(response => {
+    // code
+})
+```
+
+## torrentData return
+example return:
+```json
+{
+    "filetype": "movie",
+    "title": "Batman.-.The.Dark.Knight.2008.(2160p.x265.10bit.S90.Joy).torrent",
+    "source": null,
+    "sourceUrl": null,
+    "magnet": "magnet:?xt=urn:btih:58CB561E616FA4FCCE3D5FE48AD4AB48101CDDCB&dn=%5Bzooqle.com%5D%20Batman%20-%20The%20Dark%20Knight%202008%20%282160p%20x265%2010bit%20S90%20Joy%29&tr=udp://tracker.leechers-paradise.org:6969&tr=http://explodie.org:6969/announce&tr=http://mgtracker.org:2710/announce&tr=http://tracker.mg64.net:6881/announce&tr=http://announce.xxx-tracker.com:2710/announce&xl=7262420065&tr=udp%3A%2F%2Fp4p.arenabg.com%3A1337&tr=udp%3A%2F%2F9.rarbg.to%3A2710&tr=udp%3A%2F%2Feddie4.nl%3A6969&tr=udp%3A%2F%2Fpublic.popcorn-tracker.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969",
+    "hash": "58CB561E616FA4FCCE3D5FE48AD4AB48101CDDCB",
+    "size": "6.8 GB",
+    "date": "Mar 24, 2018"
+}
 ```
