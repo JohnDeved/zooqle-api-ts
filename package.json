@@ -1,7 +1,28 @@
 {
   "name": "zooqle-api-ts",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.37",
+  "description": "Promise based Zooqle Torrent Scraper written in TypeScript.",
+  "keywords": [
+    "zooqle",
+    "api",
+    "torrent",
+    "scraper",
+    "promise",
+    "pirate",
+    "piratebay",
+    "rargb",
+    "imdb",
+    "hash"
+  ],
+  "homepage": "https://github.com/JohnDeved/zooqle-api-ts#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JohnDeved/zooqle-api-ts"
+  },
+  "bugs": {
+    "email": "johann@objekt.stream",
+    "url": "https://github.com/JohnDeved/zooqle-api-ts/issues"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
