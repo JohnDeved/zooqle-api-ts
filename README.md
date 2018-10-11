@@ -1,5 +1,14 @@
 # Overview
 
+- [Zooqle Search](#zooqle-search)
+    - [Search By Query](#search-by-query)
+    - [Search By IMDB Id](#search-by-imdb-id)
+    - [Search By Magnet Hash](#search-by-magnet-hash)
+    - [Search Parameters](#search-parameters)
+    - [Search Returns](#search-returns)
+- [Zooqle GetData](#zooqle-getdata)
+- [Zooqle GetTorrentData](#zooqle-gettorrentdata)
+
 # Zooqle Search
 
 **Parameters:**
@@ -89,7 +98,7 @@ descending: 'sd=d'
 ascending: 'sd=a'
 ```
 
-## Returns
+## Search Returns
 
 ### search
 **example return:**
@@ -195,7 +204,7 @@ ascending: 'sd=a'
 }
 ```
 
-# Zooqle getData
+# Zooqle GetData
 
 Sometimes the scrapper search result will return a property called "dataHref", which is more data about the current result hidden within another subpage of zooqle.
 
@@ -252,7 +261,7 @@ zooqle.getData('/misc/tveps.php?show=60573&se=5&ep=1').then(response => {
 ]
 ```
 
-# Zooqle getTorrentData
+# Zooqle GetTorrentData
 
 If you have an url to a torrent subpage of Zooqle you can use getTorrentData to get meta info about the torrent.
 
