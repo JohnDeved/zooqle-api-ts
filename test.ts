@@ -1,5 +1,7 @@
 import { zooqle } from '.'
 
+// zooqle.endPoint = 'https://zooqle.unblocked.gdn/'
+
 zooqle.search('silicon valley', [zooqle.enums.SORT.seeders, zooqle.enums.SORT_TYPE.descending]).then(response => {
   console.log(1, response)
   debugger

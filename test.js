@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require(".");
+// zooqle.endPoint = 'https://zooqle.unblocked.gdn/'
 _1.zooqle.search('silicon valley', [_1.zooqle.enums.SORT.seeders, _1.zooqle.enums.SORT_TYPE.descending]).then(response => {
     console.log(1, response);
     debugger;
