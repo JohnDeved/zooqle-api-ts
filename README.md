@@ -9,6 +9,10 @@
 - [Zooqle GetData](#zooqle-getdata)
 - [Zooqle GetTorrentData](#zooqle-gettorrentdata)
 
+# made with ♥️ and typescript
+I added complete type support for all api returns.
+![](https://i.imgur.com/AwWFGum.png)
+
 # Zooqle Search
 
 **Parameters:**
