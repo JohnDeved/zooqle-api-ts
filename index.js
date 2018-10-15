@@ -27,7 +27,7 @@ class Enums {
 class Common {
     static load(url) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(url);
+            // console.log(url)
             const result = yield axios_1.default.get(url);
             return {
                 $: cheerio.load(result.data),
@@ -106,6 +106,8 @@ class Parser {
         const title = $('td.h4.sh1').text();
         const [from, to] = $('.sh2 i').text().split('→').map(x => x.trim());
         const summary = $('td.small.text-muted.sh2').text();
+        const imdb = $('.imdb_stars').attr('href');
+        const [imdbId] = imdb.match(/\btt\d{7}\b/) || [null];
         let seasons = [];
         const seasonsElement = $('.panel.panel-default.eplist');
         seasonsElement.each(i => {
@@ -135,6 +137,8 @@ class Parser {
             from,
             to,
             summary,
+            imdb,
+            imdbId,
             seasons
         };
         const response = {
@@ -148,6 +152,8 @@ class Parser {
         const title = $('h4.margin-top-10').text().trim();
         const summary = $('h4.margin-top-10').parent().find('p.small.text-muted').text().trim();
         const release = $('h4.margin-top-10').parent().find('h5.small.text-muted').text().trim().replace('Released • ', '');
+        const imdb = $('.imdb_stars').attr('href');
+        const [imdbId] = imdb.match(/\btt\d{7}\b/) || [null];
         let results = [];
         moviesElement.each(i => {
             const title = moviesElement.eq(i).find('a').text();
@@ -173,6 +179,8 @@ class Parser {
         const movieResponse = {
             title,
             summary,
+            imdb,
+            imdbId,
             release,
             results
         };
@@ -222,6 +230,8 @@ class Parser {
         const sourceElement = $(':contains("– Indexed from –")').last().next();
         const iconElement = $('.tor-icon');
         const filetype = Common.iconToType(iconElement);
+        const imdb = $('.imdb_stars').attr('href');
+        const [imdbId] = imdb.match(/\btt\d{7}\b/) || [null];
         let source = sourceElement.text().trim();
         if (source === '') {
             source = null;
@@ -235,6 +245,8 @@ class Parser {
         const torrent = {
             filetype,
             title,
+            imdb,
+            imdbId,
             source,
             sourceUrl,
             magnet,

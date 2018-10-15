@@ -29,6 +29,8 @@ interface IshowResponse {
     from: string;
     to: string;
     summary: string;
+    imdb: string;
+    imdbId: string;
     seasons: IshowSeasons[];
 }
 interface Iresponse {
@@ -63,12 +65,16 @@ interface ImovieResults {
 interface ImovieResponse {
     title: string;
     summary: string;
+    imdb: string;
+    imdbId: string;
     release: string;
     results: ImovieResults[];
 }
 interface Itorrent {
     filetype: string;
     title: string;
+    imdb?: string;
+    imdbId: string;
     source?: string;
     sourceUrl?: string;
     magnet: string;
