@@ -1,5 +1,6 @@
 # Overview
 
+- [Installation](#installation)
 - [Zooqle Search](#zooqle-search)
     - [Search By Query](#search-by-query)
     - [Search By IMDB Id](#search-by-imdb-id)
@@ -10,8 +11,28 @@
 - [Zooqle GetTorrentData](#zooqle-gettorrentdata)
 
 # made with ♥️ and typescript
-I added complete type support for all api returns.
+There is complete type support for all api returns.
 ![](https://i.imgur.com/AwWFGum.png)
+
+# Installation
+
+1. install module.
+
+        npm i zooqle
+
+2. include it in your project.
+
+    ```js
+    // node way
+    const { zooqle } = require('zooqle')
+
+    // es6 way
+    import { zooqle } from 'zooqle'
+    ```
+
+3. if you are using this package with typescript you should install the cheerio types.
+
+        npm i @types/cheerio -D
 
 # Zooqle Search
 
