@@ -1,6 +1,3 @@
-![](https://i.imgur.com/TLCQFBc.png)
-## this package has been moved to https://www.npmjs.com/package/zooqle
-
 # Overview
 
 - [Installation](#installation)

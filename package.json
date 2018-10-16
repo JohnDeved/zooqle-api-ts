@@ -1,6 +1,6 @@
 {
-  "name": "zooqle-api-ts",
-  "version": "1.0.40",
+  "name": "zooqle",
+  "version": "1.0.39",
   "description": "Promise based Zooqle Torrent Scraper written in TypeScript.",
   "keywords": [
     "zooqle",
