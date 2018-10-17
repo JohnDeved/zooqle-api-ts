@@ -9,6 +9,7 @@
     - [Search Returns](#search-returns)
 - [Zooqle GetData](#zooqle-getdata)
 - [Zooqle GetTorrentData](#zooqle-gettorrentdata)
+- [Endpoint](#endpoint)
 
 # made with ♥️ and typescript
 There is complete type support for all api returns.
@@ -322,4 +323,12 @@ zooqle.getTorrentData('/batman-the-dark-knight-2008-2160p-x265-10bit-s90-joy-wqi
     "size": "6.8 GB",
     "date": "Mar 24, 2018"
 }
+```
+
+# Endpoint
+
+you can change the zooqle endpoint by simply setting the "endpoint" propertie in the zooqle class object like so:
+
+```js
+zooqle.endpoint = 'https://zooqle.com'
 ```
