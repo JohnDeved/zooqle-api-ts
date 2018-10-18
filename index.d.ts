@@ -96,8 +96,11 @@ declare class Enums {
     SORT_TYPE: IsortType;
 }
 export declare class Zooqle {
-    endPoint: string;
+    constructor();
+    private _endpoint;
+    private _assignUrl;
     enums: Enums;
+    endPoint: string;
     search(query: string, parameters?: string[]): Promise<Iresponse>;
     getData(dataHref: string): Promise<Idata[]>;
     getTorrentData(torrentHref: string): Promise<Itorrent>;

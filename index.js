@@ -27,7 +27,7 @@ class Enums {
 class Common {
     static load(url) {
         return __awaiter(this, void 0, void 0, function* () {
-            // console.log(url)
+            console.log(url);
             const result = yield axios_1.default.get(url);
             return {
                 $: cheerio.load(result.data),
@@ -37,6 +37,13 @@ class Common {
     }
     static magnetToHash(magnet) {
         return magnet.match(/:([\w\d]{40})/)[1];
+    }
+    static assignUrl(endpoint, source) {
+        const url = new url_1.URL(endpoint);
+        const href = url_1.parse(source);
+        url.pathname = href.pathname;
+        url.search = href.search;
+        return url.href;
     }
     static iconToType(icon) {
         switch (true) {
@@ -259,19 +266,27 @@ class Parser {
 }
 class Zooqle {
     constructor() {
-        this.endPoint = 'https://zooqle.com';
+        this._endpoint = new url_1.URL('https://zooqle.com');
         this.enums = new Enums();
+        this._assignUrl = Common.assignUrl.bind(null, this.endPoint);
+    }
+    get endPoint() {
+        return this._endpoint.href;
+    }
+    set endPoint(url) {
+        this._endpoint.host = url;
     }
     search(query, parameters = []) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                const url = new url_1.URL(`${this.endPoint}/search`);
+                const url = this._endpoint;
+                url.pathname = '/search';
                 url.searchParams.append('q', query);
                 parameters.forEach(param => {
                     const [key, val] = param.split('=');
                     url.searchParams.append(key, val);
                 });
-                Common.load(`${this.endPoint}/search?q=${query}`)
+                Common.load(url.href)
                     .then(res => {
                     switch (true) {
                         case /\/tv\//.test(res.url):
@@ -296,7 +311,8 @@ class Zooqle {
     getData(dataHref) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                Common.load(`${this.endPoint}${dataHref}`).then(res => {
+                const url = this._assignUrl(dataHref);
+                Common.load(url).then(res => {
                     resolve(Parser.parseData(res.$));
                 });
             });
@@ -305,7 +321,8 @@ class Zooqle {
     getTorrentData(torrentHref) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                Common.load(`${this.endPoint}${torrentHref}`).then(res => {
+                const url = this._assignUrl(torrentHref);
+                Common.load(url).then(res => {
                     resolve(Parser.parseTorrent(res.$));
                 });
             });

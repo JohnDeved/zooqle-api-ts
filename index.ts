@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
-import { URL } from 'url'
+import { URL, parse, Url } from 'url'
 
 interface IsearchResults {
   filetype: string
@@ -112,6 +112,10 @@ interface IsortType {
   ascending: string
 }
 
+interface IassignUrl {
+  (url: string): string
+}
+
 class Enums {
   public SORT: Isort = {
     seeders: 's=ns',
@@ -126,7 +130,7 @@ class Enums {
 
 class Common {
   public static async load (url: string): Promise<Iload> {
-    // console.log(url)
+    console.log(url)
     const result = await axios.get(url)
 
     return {
@@ -137,6 +141,14 @@ class Common {
 
   public static magnetToHash (magnet: string) {
     return magnet.match(/:([\w\d]{40})/)[1]
+  }
+
+  public static assignUrl (endpoint: string, source: string) {
+    const url = new URL(endpoint)
+    const href = parse(source)
+    url.pathname = href.pathname
+    url.search = href.search
+    return url.href
   }
 
   public static iconToType (icon: Cheerio): string {
@@ -405,12 +417,27 @@ class Parser {
 }
 
 export class Zooqle {
-  public endPoint = 'https://zooqle.com'
+  constructor () {
+    this._assignUrl = Common.assignUrl.bind(null, this.endPoint)
+  }
+
+  private _endpoint = new URL('https://zooqle.com')
+  private _assignUrl: IassignUrl
+
   public enums = new Enums()
+
+  public get endPoint () {
+    return this._endpoint.href
+  }
+
+  public set endPoint (url: string) {
+    this._endpoint.host = url
+  }
 
   public async search (query: string, parameters: string[] = []) {
     return new Promise<Iresponse>((resolve, reject) => {
-      const url = new URL(`${this.endPoint}/search`)
+      const url = this._endpoint
+      url.pathname = '/search'
       url.searchParams.append('q', query)
 
       parameters.forEach(param => {
@@ -418,7 +445,7 @@ export class Zooqle {
         url.searchParams.append(key, val)
       })
 
-      Common.load(`${this.endPoint}/search?q=${query}`)
+      Common.load(url.href)
         .then(res => {
           switch (true) {
             case /\/tv\//.test(res.url):
@@ -443,7 +470,8 @@ export class Zooqle {
 
   public async getData (dataHref: string) {
     return new Promise<Idata[]>((resolve, reject) => {
-      Common.load(`${this.endPoint}${dataHref}`).then(res => {
+      const url = this._assignUrl(dataHref)
+      Common.load(url).then(res => {
         resolve(Parser.parseData(res.$))
       })
     })
@@ -451,7 +479,8 @@ export class Zooqle {
 
   public async getTorrentData (torrentHref: string) {
     return new Promise<Itorrent>((resolve, reject) => {
-      Common.load(`${this.endPoint}${torrentHref}`).then(res => {
+      const url = this._assignUrl(torrentHref)
+      Common.load(url).then(res => {
         resolve(Parser.parseTorrent(res.$))
       })
     })
