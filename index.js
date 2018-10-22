@@ -27,7 +27,7 @@ class Enums {
 class Common {
     static load(url) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(url);
+            // console.log(url)
             const result = yield axios_1.default.get(url);
             return {
                 $: cheerio.load(result.data),

@@ -130,7 +130,7 @@ class Enums {
 
 class Common {
   public static async load (url: string): Promise<Iload> {
-    console.log(url)
+    // console.log(url)
     const result = await axios.get(url)
 
     return {
