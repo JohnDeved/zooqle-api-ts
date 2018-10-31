@@ -88,6 +88,7 @@ describe('zooqle scraper tests', function () {
       chai.expect(result.showResponse).to.not.exist
       chai.expect(result.type).to.exist
       chai.expect(result.type).to.be.equal('torrent')
+      chai.expect(result.torrentResponse).to.have.all.keys('title', 'imdb', 'imdbId', 'source', 'sourceUrl', 'magnet', 'hash', 'size', 'date')
     })
   })
 })
