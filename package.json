@@ -25,7 +25,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "debug": "node --inspect-brk ./debug"
   },
   "author": "",
   "license": "ISC",
