@@ -474,6 +474,7 @@ export class Zooqle {
       Common.load(url).then(res => {
         resolve(Parser.parseData(res.$))
       })
+      .catch(console.error)
     })
   }
 
@@ -483,6 +484,7 @@ export class Zooqle {
       Common.load(url).then(res => {
         resolve(Parser.parseTorrent(res.$))
       })
+      .catch(console.error)
     })
   }
 }
