@@ -151,6 +151,18 @@ class Common {
     return url.href
   }
 
+  public static parseSeeders (seedersStr: string) {
+
+    if (seedersStr) {
+      const seedersMatch = seedersStr.match(/\d+/g)
+      if (seedersMatch) {
+        return seedersMatch.map(x => Number(x))
+      }
+    }
+
+    return [0, 0]
+  }
+
   public static iconToType (icon: Cheerio): string {
     switch (true) {
       case icon.hasClass('zqf-movies'):
@@ -201,8 +213,9 @@ class Parser {
       .first().parent().attr('href')
 
       const size = progress.eq(0).text()
-      const [seeders, leechers] = progress.eq(1).attr('title')
-        .match(/\d+/g).map(x => parseInt(x, 10))
+
+      const seedersStr = progress.eq(1).attr('title')
+      const [seeders, leechers] = Common.parseSeeders(seedersStr)
 
       const iconElement = $('.zqf.text-muted2.zqf-small.pad-r2').eq(i)
       const filetype = Common.iconToType(iconElement)
@@ -307,9 +320,9 @@ class Parser {
       const language = moviesElement.eq(i).find('span').eq(1).text()
       const [quality] = title.match(/\d{3,4}p/) || ['Str']
       const size = moviesElement.eq(i).parent().find('.progress-bar.prog-blue').text()
-      const [seeders, leechers] = moviesElement.eq(i).parent()
+      const seedersStr = moviesElement.eq(i).parent()
         .find('.progress-bar.prog-green').parent().attr('title')
-        .match(/\d+/g).map(x => parseInt(x, 10))
+      const [seeders, leechers] = Common.parseSeeders(seedersStr)
 
       results.push({
         title,
@@ -359,8 +372,8 @@ class Parser {
       const magnet = $('.spr.dl-magnet').eq(i).parent().attr('href')
       const hash = Common.magnetToHash(magnet)
       const size = $('.progress-bar.prog-blue.prog-l').eq(i).text()
-      const [seeders, leechers] = $('.progress-bar.smaller.prog-l').eq(i).parent().attr('title')
-        .match(/\d+/g).map(x => parseInt(x, 10))
+      const seedersStr = $('.progress-bar.smaller.prog-l').eq(i).parent().attr('title')
+      const [seeders, leechers] = Common.parseSeeders(seedersStr)
 
       data.push({
         title,
