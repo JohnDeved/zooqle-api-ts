@@ -74,3 +74,9 @@ typings/
 
 # .todo
 *.js
+
+debug\.d\.ts
+
+index\.d\.ts
+
+test\.d\.ts
