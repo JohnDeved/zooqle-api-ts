@@ -79,6 +79,21 @@ describe('zooqle scraper tests', function () {
         chai.expect(r).to.have.all.keys('title', 'torrentHref', 'sound', 'language', 'quality', 'size', 'seeders', 'leechers')
       })
     })
+    it('imdb movie2', async function () {
+      const result = await zooqle.search('tt0076759')
+      chai.expect(result).to.exist
+      chai.expect(result.movieResponse).to.exist
+      chai.expect(result.showResponse).to.not.exist
+      chai.expect(result.searchResponse).to.not.exist
+      chai.expect(result.type).to.exist
+      chai.expect(result.type).to.be.equal('movie')
+      chai.expect(result.movieResponse).to.have.all.keys('title', 'summary', 'imdb', 'imdbId', 'release', 'results')
+      chai.expect(result.movieResponse.results).to.be.an('array')
+      result.movieResponse.results.forEach(r => {
+        chai.expect(r).to.exist
+        chai.expect(r).to.have.all.keys('title', 'torrentHref', 'sound', 'language', 'quality', 'size', 'seeders', 'leechers')
+      })
+    })
     it('torrent hash', async function () {
       const result = await zooqle.search('115E8B3596DE77BF6A463B2654697F47F4064DB6')
       chai.expect(result).to.exist
