@@ -23,12 +23,15 @@
     "email": "johann@objekt.stream",
     "url": "https://github.com/JohnDeved/zooqle-api-ts/issues"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "mocha ./dist/test",
     "debug": "node --inspect-brk ./dist/debug"
   },
-  "author": "",
+  "author": "discord: undefined#6078",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
