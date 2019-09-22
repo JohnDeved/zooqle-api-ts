@@ -198,10 +198,10 @@ class Common {
 class Parser {
   public static parseSearch ($: CheerioStatic) {
     let [, search, pageSize, total]: string[] | number[] = $('.panel.zq-panel.zq-small .panel-heading')
-      .text().trim().match(/"(.+)"\n{2}.+-\n(\d+)\nof (\d+)/)
+      .text().trim().match(/"(.+)"\n{2}.+-\n(\d+)\nof (\d+[,]?\d+)/)
 
     pageSize = parseInt(pageSize, 10)
-    total = parseInt(total, 10)
+    total = parseInt(total.replace(',', ''), 10)
 
     const htmlResults = $('td.text-trunc.text-nowrap a')
     const searchResults: IsearchResults[] = []
